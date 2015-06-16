@@ -23,7 +23,7 @@ def has_error(w,data):
 		i.insert(0,1)
 		x=i
 		print('w:',w,'x:',x[:5])
-		if sign(np.dot(w,x[:5]))*x[5]>0:
+		if sign(np.dot(w,x[:5]))*x[5]<=0:
 			flag = True
 			w = np.add(w,np.dot(x[5],x[:5]))
 			break
@@ -36,14 +36,12 @@ def pla_train(data):
 	count = 0
 	while flag==True:
 		flag = False
-		flag,w=has_error(w,data)
+		flag,nw=has_error(w,data)
+		w = nw
 		if flag==True:
 			count = count +1
-			print('count:',count)
+	print('final weight:',w)
 	return count
 
-
 m=load_data('train.txt')
-#print(m)
-#shuffle(m)
-print(pla_train(m))
+print('The weight is updated ',pla_train(m),' times')
