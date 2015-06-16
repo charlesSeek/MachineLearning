@@ -5,7 +5,9 @@ def load_data(train):
 		matrix=[]
 		f = open(train,'r')
 		for line in f.readlines():
-			matrix.append(list(map(float,line.split())))
+			x = list(map(float,line.split()))
+			x.insert(0,1)
+			matrix.append(x)
 	finally:
 		if f:
 			f.close()
@@ -18,28 +20,28 @@ def sign(n):
 		return -1.0
 
 def has_error(w,data):
-	flag = False
 	for i in data :
-		i.insert(0,1)
-		x=i
-		print('w:',w,'x:',x[:5])
-		if sign(np.dot(w,x[:5]))*x[5]<=0:
+		print('w:',w,'row:',i[:5])
+		if sign(np.dot(w,i[:5]))*i[5]<=0:
 			flag = True
-			w = np.add(w,np.dot(x[5],x[:5]))
+			w = np.add(w,np.dot(i[5],i[:5]))
 			break
-	print(flag,w)
+		else :
+			flag = False
+	#print(flag,w)
 	return flag,w
 
 def pla_train(data):
 	w =[0.0,0.0,0.0,0.0,0.0]
 	flag = True
 	count = 0
-	while flag==True:
-		flag = False
+	while True:
 		flag,nw=has_error(w,data)
 		w = nw
 		if flag==True:
 			count = count +1
+		else:
+			break
 	print('final weight:',w)
 	return count
 
