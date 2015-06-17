@@ -26,7 +26,7 @@ def has_error(w,data):
 		print('w:',w,'row:',i[:5])
 		if sign(np.dot(w,i[:5]))*i[5]<=0:
 			flag = True
-			scale = np.dot(i[:5],0.5)
+			scale = np.dot(i[:5],rate)
 			w = np.add(w,np.dot(i[5],scale))
 			break
 		else :
