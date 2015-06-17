@@ -28,7 +28,6 @@ def has_error(w,data):
 		if sign(np.dot(w,i[:length-1]))*i[length-1]<=0:
 			errCount = errCount + 1
 	for i in data :
-		#print('w:',w,'row:',i[:5])
 		if sign(np.dot(w,i[:length-1]))*i[length-1]<=0:
 			flag = True
 			scale = np.dot(i[:length-1],rate)
@@ -54,12 +53,10 @@ def pla_train(data):
 			count = count +1
 		else:
 			break
-	#print('final weight:',w)
 	return minW
 
 def pla_test(data,w):
 	length = len(data)
-	print('length:',length)
 	err = 0
 	for i in data:
 		length2 = len(i)
@@ -70,9 +67,9 @@ def pla_test(data,w):
 m=load_data('train_pocket.txt')
 test = load_data('test_pocket.txt')
 errRate = 0
-for i in range(100):
+for i in range(2000):
 	random.shuffle(m)
 	w = pla_train(m)
 	rate = pla_test(test,w)
 	errRate = errRate + rate
-print('The average error rate: ', errRate/100)
+print('The average error rate: ', errRate/2000)
