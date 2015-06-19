@@ -20,7 +20,21 @@ public class LogisticRegression {
 			weight = updateWeight;
 			
 		}
-		System.out.println(updateWeight);
+		double errRate = calculateOutSampleError(updateWeight,testDataSimpleMatrix);
+		System.out.println("out sample error rate:"+errRate);
+	}
+	public static double calculateOutSampleError(SimpleMatrix w,SimpleMatrix data){
+		int rowNum = data.numRows();
+		int colNum = data.numCols();
+		SimpleMatrix xdata = data.extractMatrix(0, rowNum, 0, colNum-1);
+		SimpleMatrix ydata = data.extractVector(false, colNum-1);
+		int errCount = 0;
+		for (int i=0;i<rowNum;i++){
+			double predict = sign(xdata.extractVector(true, i).dot(w.transpose()));
+			if (predict!=ydata.get(i))
+				errCount++;
+;		}
+		return (double) errCount/rowNum;
 	}
 	public static double sign(double n){
 		if (n<=0)
