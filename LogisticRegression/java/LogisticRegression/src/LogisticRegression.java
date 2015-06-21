@@ -14,12 +14,15 @@ public class LogisticRegression {
 		SimpleMatrix testDataSimpleMatrix = loadData("test.txt");
 		SimpleMatrix weight = new SimpleMatrix(1,21);
 		SimpleMatrix updateWeight = weight;
+		System.out.println(updateWeight);
 		double rate = 0.001;
 		for (int i=0;i<2000;i++){
 			updateWeight = updateWeight.minus(gradientDescent(weight,trainDataSimpleMatrix).scale(rate));
 			weight = updateWeight;
+			//System.out.println("weight:"+weight);
 			
 		}
+		System.out.println(weight);
 		double errRate = calculateOutSampleError(updateWeight,testDataSimpleMatrix);
 		System.out.println("out sample error rate:"+errRate);
 	}
@@ -48,12 +51,11 @@ public class LogisticRegression {
 		SimpleMatrix xdata = data.extractMatrix(0, rowNum, 0, colNum-1);
 		SimpleMatrix ydata = data.extractVector(false, colNum-1);
 		SimpleMatrix weight = new SimpleMatrix(1,colNum-1);
-		
 		for (int i=0;i<rowNum;i++){
-			double coef = 1/(1+Math.exp(-1*ydata.get(i)*w.dot(xdata.extractVector(true, i))));
+			double coef = 1/(1+Math.exp(ydata.get(i)*w.dot(xdata.extractVector(true, i))));
 			weight = weight.plus(xdata.extractVector(true, i).scale(ydata.get(i)*(-1)*coef));
 		}
-		
+		//System.out.println("gradient descent:"+weight.scale((double) 1/rowNum));
 		return weight.scale((double) 1/rowNum);
 		
 	}
