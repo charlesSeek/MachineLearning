@@ -39,9 +39,6 @@ def predict(row,weight):
 	colNum = len(row)-1
 	x = row[:colNum]
 	y = row[colNum]
-	print('x:',x)
-	print('y:',y)
-
 	if sign(np.dot(x,weight))!= y:
 		return 1
 	else:
