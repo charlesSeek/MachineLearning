@@ -39,7 +39,10 @@ def predict(row,weight):
 	colNum = len(row)-1
 	x = row[:colNum]
 	y = row[colNum]
-	if sign(np.dot(x,weight))!=y:
+	print('x:',x)
+	print('y:',y)
+
+	if sign(np.dot(x,weight))!= y:
 		return 1
 	else:
 		return 0	
@@ -47,23 +50,25 @@ def predict(row,weight):
 def gradientDescent(data,w):
 	update = w
 	gradientupdate = w
-	rowNum = len(data)
-	colNum = len(data[0])
-	for i in range(rowNum):
-		x = data[i][:colNum-1]
-		y = data[i][colNum-1]
-		coef = logistic(-y*np.dot(update,np.transpose(x)))
-		gradientupdate = np.add(gradientupdate,np.dot(-y*coef,x))
-	return np.dot(1/rowNum,gradientupdate)
+	colNum = len(data)
+	x = data[:colNum-1]
+	y = data[colNum-1]
+	coef = logistic(-y*np.dot(update,np.transpose(x)))
+	gradientupdate = np.add(gradientupdate,np.dot(-y*coef,x))
+	return gradientupdate
 
 train = load_data('train.txt')
 test = load_data('test.txt')
-weight = []
-for i in range(len(train[0])-1):
-	weight.append(0)
-learningRate = 0.01
-for i in range(2000):
-	update = gradientDescent(train,weight)
+weight = np.zeros(len(train[0])-1)
+data = []
+for i in train:
+	data.append(i)
+for i in train:
+	data.append(i)
+print(data)
+learningRate = 0.001
+for i in data:
+	update = gradientDescent(i,weight)
 	w = np.subtract(weight,np.dot(update,learningRate))
 	weight = w
 	print('weight:',weight)
