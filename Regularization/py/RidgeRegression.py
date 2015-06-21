@@ -24,7 +24,7 @@ def calErrRate(output,predict):
 		if output[i]!=predict[i]:
 			errCount = errCount + 1
 	return errCount/len(output)
-
+coef = 10
 data = load_data('train.txt')
 test = load_data('test.txt')
 rowNum = len(data)
@@ -41,7 +41,7 @@ testy=[]
 for i in test:
 	testx.append(i[:colNum-1])
 	testy.append(i[colNum-1])
-weight = np.dot(np.dot(np.linalg.inv(np.add(np.dot(np.transpose(trainx),trainx),np.dot(10,np.identity(colNum-1)))),np.transpose(trainx)),trainy)
+weight = np.dot(np.dot(np.linalg.inv(np.add(np.dot(np.transpose(trainx),trainx),np.dot(coef,np.identity(colNum-1)))),np.transpose(trainx)),trainy)
 trainpredict = list(map(sign,np.dot(weight,np.transpose(trainx))))
 print("error rate in sample:",calErrRate(trainy,trainpredict))
 testpredict = list(map(sign,np.dot(weight,np.transpose(testx))))
