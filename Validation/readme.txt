@@ -9,3 +9,6 @@ Among log10λ={2,1,0,−1,…,−8,−9,−10}. What is the λ with the minimum 
 
 3. CrossValidation
 split the given training examples in D to five folds, the first 40 being fold 1, the next 40 being fold 2, and so on. Again, we take a fixed split because the given examples are already randomly permuted. Among log10λ={2,1,0,−1,…,−8,−9,−10}. What is the λ with the minimum Ecv, where Ecv comes from the five folds defined above? Compute λ and the corresponding Ecv then select the closet answer. Break the tie by selecting the largest λ.
+
+4. CrossValidation2
+Run the algorithm with the optimal λ of the previous problem on the whole D to get gλ. Compute Ein(gλ) and Eout(gλ) then select the closet answer.
